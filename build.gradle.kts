@@ -3,10 +3,10 @@ description = "This library is an extension to the great jOOλ library"
 
 plugins {
     id("net.researchgate.release") version "2.8.1"
-    id("com.bakdata.sonar") version "1.1.4"
-    id("com.bakdata.sonatype") version "1.1.4"
+    id("com.bakdata.sonar") version "1.1.7"
+    id("com.bakdata.sonatype") version "1.1.7"
     id("org.hildan.github.changelog") version "0.8.0"
-    id("io.freefair.lombok") version "3.8.0"
+    id("io.freefair.lombok") version "5.3.3.3"
 }
 
 allprojects {
@@ -47,10 +47,11 @@ allprojects {
     dependencies {
         "api"(group = "org.jooq", name = "jool", version = "0.9.14")
 
-        "testRuntimeOnly"("org.junit.jupiter:junit-jupiter-engine:5.5.1")
-        "testImplementation"("org.junit.jupiter:junit-jupiter-params:5.5.1")
-        "testImplementation"("org.junit.jupiter:junit-jupiter-api:5.5.1")
-        "testImplementation"(group = "org.assertj", name = "assertj-core", version = "3.13.2")
+        val junitVersion = "5.7.2"
+        "testRuntimeOnly"("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+        "testImplementation"("org.junit.jupiter:junit-jupiter-params:$junitVersion")
+        "testImplementation"("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+        "testImplementation"(group = "org.assertj", name = "assertj-core", version = "3.20.2")
     }
 }
 

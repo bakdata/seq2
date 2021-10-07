@@ -16,6 +16,7 @@ package com.bakdata.util.seq2;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +27,16 @@ class Seq2Test {
         assertThat((Stream<Integer>) Seq2.of(1, 2).flatMapToIterable(List::of))
                 .hasSize(2)
                 .containsExactlyInAnyOrder(1, 2);
+    }
+
+    @Test
+    void shouldFlatMapToOptional() {
+        assertThat((Stream<Integer>) Seq2.of(1, 2).flatMapToOptional(Optional::of))
+                .hasSize(2)
+                .containsExactlyInAnyOrder(1, 2);
+        assertThat((Stream<Integer>) Seq2.of(1, null).flatMapToOptional(Optional::ofNullable))
+                .hasSize(1)
+                .containsExactlyInAnyOrder(1);
     }
 
 }

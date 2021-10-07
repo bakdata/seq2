@@ -161,6 +161,14 @@ public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, 
     }
 
     /**
+     * @see Seq#seq(Optional)
+     */
+    static <K, V> PairSeq<K, V> seq(final Optional<? extends Tuple2<K, V>> optional) {
+        final Seq2<Tuple2<K, V>> seq = Seq2.seq(optional);
+        return seq(seq);
+    }
+
+    /**
      * Wrap a {@code Stream} into a {@code PairSeq}.
      */
     static <K, V> PairSeq<K, V> seq(final Seq2<Tuple2<K, V>> seq2) {

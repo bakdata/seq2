@@ -148,6 +148,14 @@ public interface Seq2<T> extends Stream<T>, Iterable<T>, BaseSeq<T> {
     }
 
     /**
+     * @see Seq#seq(Optional)
+     */
+    static <T> Seq2<T> seq(final Optional<? extends T> optional) {
+        final Seq<T> seq = Seq.seq(optional);
+        return seq(seq);
+    }
+
+    /**
      * Wrap a {@code Stream} into a {@code Seq}.
      */
     static <T> Seq2<T> seq(final Seq2<T> seq2) {
@@ -438,6 +446,15 @@ public interface Seq2<T> extends Stream<T>, Iterable<T>, BaseSeq<T> {
      */
     default <R> Seq2<R> flatMapToIterable(final Function<? super T, ? extends Iterable<? extends R>> mapper) {
         return seq(this.toSeq().flatMap(t -> seq(mapper.apply(t))));
+    }
+
+    /**
+     * Flat map this stream. Instead of returning a stream, the passed function can return an {@code Optional}.
+     *
+     * @see Seq#flatMap(Function)
+     */
+    default <R> Seq2<R> flatMapToOptional(final Function<? super T, ? extends Optional<? extends R>> mapper) {
+        return seq(this.toSeq().flatMap(t -> mapper.apply(t).stream()));
     }
 
     @Override
