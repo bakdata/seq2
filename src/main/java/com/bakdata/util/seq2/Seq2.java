@@ -440,6 +440,15 @@ public interface Seq2<T> extends Stream<T>, Iterable<T>, BaseSeq<T> {
         return seq(this.toSeq().flatMap(t -> seq(mapper.apply(t))));
     }
 
+    /**
+     * Flat map this stream. Instead of returning a stream, the passed function can return an {@code Optional}.
+     *
+     * @see Seq#flatMap(Function)
+     */
+    default <R> Seq2<R> flatMapToOptional(final Function<? super T, ? extends Optional<? extends R>> mapper) {
+        return seq(this.toSeq().flatMap(t -> mapper.apply(t).stream()));
+    }
+
     @Override
     default LongStream flatMapToLong(final Function<? super T, ? extends LongStream> mapper) {
         return this.toSeq().flatMapToLong(mapper);

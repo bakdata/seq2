@@ -236,7 +236,7 @@ class PairSeqTest {
     @Test
     void shouldGroupBy() {
         final Map<String, List<Tuple2<Integer, String>>> actual = PairSeq.seq(Map.of(1, "a", 2, "a"))
-                .groupBy(Tuple2::v2);
+                .groupBy((k, v) -> v);
         assertThat(actual)
                 .hasSize(1)
                 .hasEntrySatisfying("a", value -> assertThat(value)
