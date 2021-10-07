@@ -148,6 +148,14 @@ public interface Seq2<T> extends Stream<T>, Iterable<T>, BaseSeq<T> {
     }
 
     /**
+     * @see Seq#seq(Optional)
+     */
+    static <T> Seq2<T> seq(final Optional<? extends T> optional) {
+        final Seq<T> seq = Seq.seq(optional);
+        return seq(seq);
+    }
+
+    /**
      * Wrap a {@code Stream} into a {@code Seq}.
      */
     static <T> Seq2<T> seq(final Seq2<T> seq2) {
