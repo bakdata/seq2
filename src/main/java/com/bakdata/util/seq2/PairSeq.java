@@ -978,16 +978,16 @@ public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, 
      * @see Seq2#flatMapToIterable(Function)
      */
     default <R> Seq2<R> flatMapToIterable(final BiFunction<? super K, ? super V, ? extends Iterable<? extends R>> mapper) {
-        final Seq2<Iterable<? extends R>> map = this.map(mapper);
-        return map.flatMapToIterable(Function.identity());
+        final Seq2<Iterable<? extends R>> seq2 = this.map(mapper);
+        return seq2.flatMapToIterable(Function.identity());
     }
 
     /**
      * @see Seq2#flatMapToOptional(Function)
      */
     default <R> Seq2<R> flatMapToOptional(final BiFunction<? super K, ? super V, ? extends Optional<? extends R>> mapper) {
-        final Seq2<Optional<? extends R>> map = this.map(mapper);
-        return map.flatMapToOptional(Function.identity());
+        final Seq2<Optional<? extends R>> seq2 = this.map(mapper);
+        return seq2.flatMapToOptional(Function.identity());
     }
 
     /**
