@@ -15,8 +15,10 @@ package com.bakdata.util.seq2;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -241,6 +243,30 @@ class PairSeqTest {
                 .hasSize(1)
                 .hasEntrySatisfying("a", value -> assertThat(value)
                         .containsExactlyInAnyOrder(new Tuple2<>(1, "a"), new Tuple2<>(2, "a")));
+    }
+
+    @Test
+    void shouldFlatMapToIterable() {
+        assertThat((Stream<Object>) PairSeq.seq(Map.of(1, "a", 2, "b"))
+                .flatMapToIterable((k, v) -> List.of(k, (Object) v)))
+                .hasSize(4)
+                .containsExactlyInAnyOrder(1, "a", 2, "b");
+    }
+
+    @Test
+    void shouldFlatMapToOptional() {
+        assertThat((Stream<String>) PairSeq.seq(Map.of(1, "a", 2, "b")).flatMapToOptional((k, v) -> Optional.of(v)))
+                .hasSize(2)
+                .containsExactlyInAnyOrder("a", "b");
+        assertThat((Stream<Integer>) PairSeq.seq(Map.of(1, "a", 2, "b")).flatMapToOptional((k, v) -> Optional.of(k)))
+                .hasSize(2)
+                .containsExactlyInAnyOrder(1, 2);
+        final Map<Integer, String> map = new HashMap<>();
+        map.put(1, "a");
+        map.put(2, null);
+        assertThat((Stream<String>) PairSeq.seq(map).flatMapToOptional((k, v) -> Optional.ofNullable(v)))
+                .hasSize(1)
+                .containsExactlyInAnyOrder("a");
     }
 
 }
