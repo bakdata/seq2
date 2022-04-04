@@ -269,4 +269,72 @@ class PairSeqTest {
                 .containsExactlyInAnyOrder("a");
     }
 
+    @Test
+    void shouldInnerJoinByKey() {
+        final Map<Integer, Tuple2<String, Long>> actual = PairSeq.seq(Map.of(1, "a", 2, "b"))
+                .innerJoinByKey(PairSeq.seq(Map.of(1, 1L, 2, 2L)))
+                .toMap();
+        assertThat(actual)
+                .hasSize(2)
+                .hasEntrySatisfying(1, value -> {
+                    assertThat(value.v1()).isEqualTo("a");
+                    assertThat(value.v2()).isEqualTo(1L);
+                })
+                .hasEntrySatisfying(2, value -> {
+                    assertThat(value.v1()).isEqualTo("b");
+                    assertThat(value.v2()).isEqualTo(2L);
+                });
+    }
+
+    @Test
+    void shouldInnerSelfJoinByKey() {
+        final Map<Integer, Tuple2<String, String>> actual = PairSeq.seq(Map.of(1, "a", 2, "b"))
+                .innerSelfJoinByKey()
+                .toMap();
+        assertThat(actual)
+                .hasSize(2)
+                .hasEntrySatisfying(1, value -> {
+                    assertThat(value.v1()).isEqualTo("a");
+                    assertThat(value.v2()).isEqualTo("a");
+                })
+                .hasEntrySatisfying(2, value -> {
+                    assertThat(value.v1()).isEqualTo("b");
+                    assertThat(value.v2()).isEqualTo("b");
+                });
+    }
+
+    @Test
+    void shouldLeftOuterJoinByKey() {
+        final Map<Integer, Tuple2<String, Long>> actual = PairSeq.seq(Map.of(1, "a", 2, "b"))
+                .leftOuterJoinByKey(PairSeq.seq(Map.of(1, 1L, 3, 2L)))
+                .toMap();
+        assertThat(actual)
+                .hasSize(2)
+                .hasEntrySatisfying(1, value -> {
+                    assertThat(value.v1()).isEqualTo("a");
+                    assertThat(value.v2()).isEqualTo(1L);
+                })
+                .hasEntrySatisfying(2, value -> {
+                    assertThat(value.v1()).isEqualTo("b");
+                    assertThat(value.v2()).isNull();
+                });
+    }
+
+    @Test
+    void shouldRightOuterJoinByKey() {
+        final Map<Integer, Tuple2<String, Long>> actual = PairSeq.seq(Map.of(3, "a", 2, "b"))
+                .rightOuterJoinByKey(PairSeq.seq(Map.of(1, 1L, 2, 2L)))
+                .toMap();
+        assertThat(actual)
+                .hasSize(2)
+                .hasEntrySatisfying(1, value -> {
+                    assertThat(value.v1()).isNull();
+                    assertThat(value.v2()).isEqualTo(1L);
+                })
+                .hasEntrySatisfying(2, value -> {
+                    assertThat(value.v1()).isEqualTo("b");
+                    assertThat(value.v2()).isEqualTo(2L);
+                });
+    }
+
 }

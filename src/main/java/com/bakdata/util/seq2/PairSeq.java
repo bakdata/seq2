@@ -977,7 +977,8 @@ public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, 
     /**
      * @see Seq2#flatMapToIterable(Function)
      */
-    default <R> Seq2<R> flatMapToIterable(final BiFunction<? super K, ? super V, ? extends Iterable<? extends R>> mapper) {
+    default <R> Seq2<R> flatMapToIterable(
+            final BiFunction<? super K, ? super V, ? extends Iterable<? extends R>> mapper) {
         final Seq2<Iterable<? extends R>> seq2 = this.map(mapper);
         return seq2.flatMapToIterable(Function.identity());
     }
@@ -985,7 +986,8 @@ public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, 
     /**
      * @see Seq2#flatMapToOptional(Function)
      */
-    default <R> Seq2<R> flatMapToOptional(final BiFunction<? super K, ? super V, ? extends Optional<? extends R>> mapper) {
+    default <R> Seq2<R> flatMapToOptional(
+            final BiFunction<? super K, ? super V, ? extends Optional<? extends R>> mapper) {
         final Seq2<Optional<? extends R>> seq2 = this.map(mapper);
         return seq2.flatMapToOptional(Function.identity());
     }
@@ -1186,12 +1188,22 @@ public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, 
         return this.innerJoin(other.toSeq2(), predicate);
     }
 
+    default <V1> PairSeq<K, Tuple2<V, V1>> innerJoinByKey(final PairSeq<K, V1> other) {
+        final PairSeq<Tuple2<K, V>, Tuple2<K, V1>> joined = this.innerJoin(other, this.byKey());
+        return joined.mapToPair((left, right) -> left.v1(), (k, v) -> new Tuple2<>(k.v2(), v.v2()));
+    }
+
     /**
      * @see Seq#innerSelfJoin(BiPredicate)
      */
     default PairSeq<Tuple2<K, V>, Tuple2<K, V>> innerSelfJoin(
             final BiPredicate<? super Tuple2<K, V>, ? super Tuple2<K, V>> predicate) {
         return this.toSeq2().innerSelfJoin(predicate);
+    }
+
+    default PairSeq<K, Tuple2<V, V>> innerSelfJoinByKey() {
+        final PairSeq<Tuple2<K, V>, Tuple2<K, V>> joined = this.innerSelfJoin(this.byKey());
+        return joined.mapToPair((left, right) -> left.v1(), (k, v) -> new Tuple2<>(k.v2(), v.v2()));
     }
 
     /**
@@ -1263,6 +1275,12 @@ public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, 
             final PairSeq<K1, V1> other,
             final BiPredicate<? super Tuple2<K, V>, ? super Tuple2<K1, V1>> predicate) {
         return this.leftOuterJoin(other.toSeq2(), predicate);
+    }
+
+    default <V1> PairSeq<K, Tuple2<V, V1>> leftOuterJoinByKey(final PairSeq<K, V1> other) {
+        final PairSeq<Tuple2<K, V>, Tuple2<K, V1>> joined = this.leftOuterJoin(other, this.byKey());
+        return joined.mapToPair((left, optionalRight) -> new Tuple2<>(left.v1(),
+                new Tuple2<>(left.v2(), Optional.ofNullable(optionalRight).map(Tuple2::v2).orElse(null))));
     }
 
     /**
@@ -2234,6 +2252,12 @@ public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, 
         return this.rightOuterJoin(other.toSeq2(), predicate);
     }
 
+    default <V1> PairSeq<K, Tuple2<V, V1>> rightOuterJoinByKey(final PairSeq<K, V1> other) {
+        final PairSeq<Tuple2<K, V>, Tuple2<K, V1>> joined = this.rightOuterJoin(other, this.byKey());
+        return joined.mapToPair((optionalLeft, right) -> new Tuple2<>(right.v1(),
+                new Tuple2<>(Optional.ofNullable(optionalLeft).map(Tuple2::v2).orElse(null), right.v2())));
+    }
+
     /**
      * @see Seq#rightOuterSelfJoin(BiPredicate)
      */
@@ -2685,6 +2709,10 @@ public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, 
     default <U> Seq2<Window<Tuple2<K, V>>> window(final BiFunction<? super K, ? super V, ? extends U> partitionBy,
             final Comparator<? super Tuple2<K, V>> orderBy, final long lower, final long upper) {
         return this.window(this.unwrap(partitionBy), orderBy, lower, upper);
+    }
+
+    private <V1> BiPredicate<Tuple2<K, V>, Tuple2<K, V1>> byKey() {
+        return (k, v) -> k.v1().equals(v.v1());
     }
 
     private Consumer<Tuple2<K, V>> unwrap(final BiConsumer<? super K, ? super V> action) {
