@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.0.3](https://github.com/bakdata/seq2/tree/1.0.3) (2022-04-04)
+[Full Changelog](https://github.com/bakdata/seq2/compare/1.0.2...1.0.3)
+
+**Merged pull requests:**
+
+- Add joins by key [\#3](https://github.com/bakdata/seq2/pull/3) ([@philipp94831](https://github.com/philipp94831))
+
 ## [1.0.2](https://github.com/bakdata/seq2/tree/1.0.2) (2021-11-03)
 [Full Changelog](https://github.com/bakdata/seq2/compare/1.0.1...1.0.2)
 
