@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.0.4](https://github.com/bakdata/seq2/tree/1.0.4) (2022-05-18)
+[Full Changelog](https://github.com/bakdata/seq2/compare/1.0.3...1.0.4)
+
+**Merged pull requests:**
+
+- Add flat map to optional and iterable methods to PairSeq [\#4](https://github.com/bakdata/seq2/pull/4) ([@philipp94831](https://github.com/philipp94831))
+
 ## [1.0.3](https://github.com/bakdata/seq2/tree/1.0.3) (2022-04-04)
 [Full Changelog](https://github.com/bakdata/seq2/compare/1.0.2...1.0.3)
 
