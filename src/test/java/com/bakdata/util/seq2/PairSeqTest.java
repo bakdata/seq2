@@ -270,6 +270,40 @@ class PairSeqTest {
     }
 
     @Test
+    void shouldFlatMapValuesToIterable() {
+        assertThat((Stream<Tuple2<Integer, String>>) PairSeq.seq(Map.of(1, "a", 2, "b"))
+                .flatMapValuesToIterable(v -> List.of(v, v + 1)))
+                .hasSize(4)
+                .containsExactlyInAnyOrder(new Tuple2<>(1, "a"), new Tuple2<>(1, "a1"), new Tuple2<>(2, "b"),
+                        new Tuple2<>(2, "b1"));
+    }
+
+    @Test
+    void shouldFlatMapValuesToOptional() {
+        assertThat((Stream<Tuple2<Integer, String>>) PairSeq.seq(Map.of(1, "a", 2, "b"))
+                .flatMapValuesToOptional(v -> "a".equals(v) ? Optional.of(v) : Optional.empty()))
+                .hasSize(1)
+                .containsExactlyInAnyOrder(new Tuple2<>(1, "a"));
+    }
+
+    @Test
+    void shouldFlatMapKeysToIterable() {
+        assertThat((Stream<Tuple2<Integer, String>>) PairSeq.seq(Map.of(1, "a", 2, "b"))
+                .flatMapKeysToIterable(k -> List.of(k, k + 1)))
+                .hasSize(4)
+                .containsExactlyInAnyOrder(new Tuple2<>(1, "a"), new Tuple2<>(2, "a"), new Tuple2<>(2, "b"),
+                        new Tuple2<>(3, "b"));
+    }
+
+    @Test
+    void shouldFlatMapKeysToOptional() {
+        assertThat((Stream<Tuple2<Integer, String>>) PairSeq.seq(Map.of(1, "a", 2, "b"))
+                .flatMapKeysToOptional(k -> 1 == k ? Optional.of(k) : Optional.empty()))
+                .hasSize(1)
+                .containsExactlyInAnyOrder(new Tuple2<>(1, "a"));
+    }
+
+    @Test
     void shouldInnerJoinByKey() {
         final Map<Integer, Tuple2<String, Long>> actual = PairSeq.seq(Map.of(1, "a", 2, "b"))
                 .innerJoinByKey(PairSeq.seq(Map.of(1, 1L, 2, 2L)))
