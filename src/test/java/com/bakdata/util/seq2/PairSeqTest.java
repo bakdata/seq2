@@ -45,6 +45,13 @@ class PairSeqTest {
     }
 
     @Test
+    void shouldCollectToList() {
+        assertThat(PairSeq.seq(Map.of(1, "a", 2, "b")).toList())
+                .hasSize(2)
+                .containsExactly(new Tuple2<>(1, "a"), new Tuple2<>(2, "b"));
+    }
+
+    @Test
     void shouldMap() {
         assertThat((Stream<String>) PairSeq.seq(Map.of(1, "a", 2, "b")).map((k, v) -> k + v))
                 .hasSize(2)
