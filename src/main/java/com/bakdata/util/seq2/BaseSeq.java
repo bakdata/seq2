@@ -580,9 +580,7 @@ public interface BaseSeq<T> {
     /**
      * @see Seq#toList()
      */
-    default List<T> toList() {
-        return this.toSeq().toList();
-    }
+    List<T> toList();
 
     /**
      * @see Seq#toList(Supplier)
