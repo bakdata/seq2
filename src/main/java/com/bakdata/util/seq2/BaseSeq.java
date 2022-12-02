@@ -580,7 +580,7 @@ public interface BaseSeq<T> {
     /**
      * @see Seq#toList()
      */
-    List<T> toList();
+    List<T> toList(); // having a default implementation conflicts with Java 16+
 
     /**
      * @see Seq#toList(Supplier)
