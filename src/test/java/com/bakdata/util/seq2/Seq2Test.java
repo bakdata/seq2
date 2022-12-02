@@ -23,6 +23,13 @@ import org.junit.jupiter.api.Test;
 class Seq2Test {
 
     @Test
+    void shouldCollectToList() {
+        assertThat(Seq2.seq(List.of(1, 2)).toList())
+                .hasSize(2)
+                .containsExactly(1, 2);
+    }
+
+    @Test
     void shouldFlatMapToIterable() {
         assertThat((Stream<Integer>) Seq2.of(1, 2).flatMapToIterable(List::of))
                 .hasSize(2)

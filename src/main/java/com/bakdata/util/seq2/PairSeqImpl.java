@@ -13,6 +13,7 @@
 
 package com.bakdata.util.seq2;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.jooq.lambda.Seq;
 import org.jooq.lambda.tuple.Tuple2;
@@ -21,6 +22,11 @@ import org.jooq.lambda.tuple.Tuple2;
 class PairSeqImpl<K, V> implements PairSeq<K, V> {
 
     private final Seq2<Tuple2<K, V>> wrapped;
+
+    @Override
+    public List<Tuple2<K, V>> toList() {
+        return this.toSeq().toList();
+    }
 
     @Override
     public Seq<Tuple2<K, V>> toSeq() {

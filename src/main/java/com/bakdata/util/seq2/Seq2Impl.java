@@ -13,12 +13,18 @@
 
 package com.bakdata.util.seq2;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.jooq.lambda.Seq;
 
 @RequiredArgsConstructor
 class Seq2Impl<T> implements Seq2<T> {
     private final Seq<T> wrapped;
+
+    @Override
+    public List<T> toList() {
+        return this.toSeq().toList();
+    }
 
     @Override
     public Seq<T> toSeq() {
