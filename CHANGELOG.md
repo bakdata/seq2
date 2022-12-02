@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.0.5](https://github.com/bakdata/seq2/tree/1.0.5) (2022-12-02)
+[Full Changelog](https://github.com/bakdata/seq2/compare/1.0.4...1.0.5)
+
+**Merged pull requests:**
+
+- Fix toList method in Java 16\+ [\#6](https://github.com/bakdata/seq2/pull/6) ([@philipp94831](https://github.com/philipp94831))
+
 ## [1.0.4](https://github.com/bakdata/seq2/tree/1.0.4) (2022-05-18)
 [Full Changelog](https://github.com/bakdata/seq2/compare/1.0.3...1.0.4)
 
