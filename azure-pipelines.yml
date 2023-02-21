@@ -5,7 +5,7 @@ trigger:
       - refs/tags/*
     
 variables:
-  - group: sonarqube
+- group: sonarqube
 - group: sign
 - group: ossrh
 - group: changelog
