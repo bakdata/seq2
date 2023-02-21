@@ -388,7 +388,8 @@ class PairSeqTest {
 
     @Test
     void shouldJoinToStringOrEmptyWithPrefixAndSuffix() {
-        assertThat(PairSeq.seq(List.of(new Tuple2<>(1, "a"), new Tuple2<>(2, "b"), new Tuple2<>(3, "c"))).toStringOrEmpty(" ", "^", "$"))
+        assertThat(PairSeq.seq(List.of(new Tuple2<>(1, "a"), new Tuple2<>(2, "b"), new Tuple2<>(3, "c")))
+                .toStringOrEmpty(" ", "^", "$"))
                 .hasValue("^(1, a) (2, b) (3, c)$");
         assertThat(PairSeq.empty().toStringOrEmpty(" ", "^", "$")).isNotPresent();
     }
