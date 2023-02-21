@@ -1,5 +1,5 @@
 /*
- * Copyright (c), 2019 bakdata GmbH
+ * Copyright (c), 2023 bakdata GmbH
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -632,10 +632,40 @@ public interface BaseSeq<T> {
     }
 
     /**
+     * Consume a stream and concatenate all elements using a separator or return an empty Optional if the stream is
+     * empty.
+     *
+     * @param delimiter the delimiter to be used between each element prefix – the sequence of characters to be used at
+     * the
+     * @return concatenated elements or empty Optional
+     * @see #toString(String)
+     */
+    default Optional<String> toStringOrEmpty(final String delimiter) {
+        final String seq = this.toString(delimiter);
+        return seq.isEmpty() ? Optional.empty() : Optional.of(seq);
+    }
+
+    /**
      * @see Seq#toString(CharSequence, CharSequence, CharSequence)
      */
     default String toString(final String delimiter, final String prefix, final String suffix) {
         return this.toSeq().toString(delimiter, prefix, suffix);
+    }
+
+    /**
+     * Consume a stream and concatenate all elements using a separator or return an empty Optional if the stream is
+     * empty. Additionally, the string is prefixed and suffixed.
+     *
+     * @param delimiter the delimiter to be used between each element prefix – the sequence of characters to be used at
+     * the
+     * @param prefix the sequence of characters to be used at the beginning of the joined result
+     * @param suffix the sequence of characters to be used at the end of the joined result
+     * @return concatenated elements or empty Optional
+     * @see #toString(String)
+     */
+    default Optional<String> toStringOrEmpty(final String delimiter, final String prefix, final String suffix) {
+        final String seq = this.toString(delimiter, prefix, suffix);
+        return seq.equals(prefix + suffix) ? Optional.empty() : Optional.of(seq);
     }
 
     /**

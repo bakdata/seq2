@@ -1,5 +1,5 @@
 /*
- * Copyright (c), 2019 bakdata GmbH
+ * Copyright (c), 2023 bakdata GmbH
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -377,6 +377,20 @@ class PairSeqTest {
                     assertThat(value.v1()).isEqualTo("b");
                     assertThat(value.v2()).isEqualTo(2L);
                 });
+    }
+
+    @Test
+    void shouldJoinToStringOrEmpty() {
+        assertThat(PairSeq.seq(List.of(new Tuple2<>(1, "a"), new Tuple2<>(2, "b"))).toStringOrEmpty(" "))
+                .hasValue("(1, a) (2, b)");
+        assertThat(PairSeq.empty().toStringOrEmpty(" ")).isNotPresent();
+    }
+
+    @Test
+    void shouldJoinToStringOrEmptyWithPrefixAndSuffix() {
+        assertThat(PairSeq.seq(List.of(new Tuple2<>(1, "a"), new Tuple2<>(2, "b"), new Tuple2<>(3, "c"))).toStringOrEmpty(" ", "^", "$"))
+                .hasValue("^(1, a) (2, b) (3, c)$");
+        assertThat(PairSeq.empty().toStringOrEmpty(" ", "^", "$")).isNotPresent();
     }
 
 }
