@@ -381,29 +381,16 @@ class PairSeqTest {
 
     @Test
     void shouldJoinToStringOrEmpty() {
-        assertThat(PairSeq.seq(Map.of(1, "a", 2, "b")).toStringOrEmpty(" "))
-                .hasValueSatisfying(s -> {
-                    assertThat(s).contains("(1, a)");
-                    assertThat(s).contains("(2, b)");
-                    assertThat(s).contains(") (");
-                    assertThat(s).startsWith("(");
-                    assertThat(s).endsWith(")");
-                });
-        assertThat(Seq2.empty().toStringOrEmpty(" ")).isNotPresent();
+        assertThat(PairSeq.seq(List.of(new Tuple2<>(1, "a"), new Tuple2<>(2, "b"))).toStringOrEmpty(" "))
+                .hasValue("(1, a) (2, b)");
+        assertThat(PairSeq.empty().toStringOrEmpty(" ")).isNotPresent();
     }
 
     @Test
     void shouldJoinToStringOrEmptyWithPrefixAndSuffix() {
-        assertThat(Seq2.seq(Map.of(1, "a", 2, "b", 3, "c")).toStringOrEmpty(" ", "^", "$"))
-                .hasValueSatisfying(s -> {
-                    assertThat(s).contains("(1, a)");
-                    assertThat(s).contains("(2, b)");
-                    assertThat(s).contains("(3, c)");
-                    assertThat(s).contains(") (");
-                    assertThat(s).startsWith("^(");
-                    assertThat(s).endsWith(")$");
-                });
-        assertThat(Seq2.empty().toStringOrEmpty(" ", "^", "$")).isNotPresent();
+        assertThat(PairSeq.seq(List.of(new Tuple2<>(1, "a"), new Tuple2<>(2, "b"), new Tuple2<>(3, "c"))).toStringOrEmpty(" ", "^", "$"))
+                .hasValue("^(1, a) (2, b) (3, c)$");
+        assertThat(PairSeq.empty().toStringOrEmpty(" ", "^", "$")).isNotPresent();
     }
 
 }
