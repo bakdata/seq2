@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
+import org.jooq.lambda.tuple.Tuple2;
 import org.junit.jupiter.api.Test;
 
 class Seq2Test {
@@ -56,6 +57,31 @@ class Seq2Test {
     void shouldJoinToStringWithPrefixAndSuffix() {
         assertThat(Seq2.seq(List.of(1, 2, 3)).toStringOrEmpty(" ", "^", "$")).hasValue("^1 2 3$");
         assertThat(Seq2.empty().toStringOrEmpty(" ", "^", "$")).isNotPresent();
+    }
+
+    @Test
+    void shouldSelectKey() {
+        assertThat((Stream<Tuple2<Integer, Integer>>) Seq2.seq(List.of(1, 2))
+                .selectKey(i -> i + 1))
+                .hasSize(2)
+                .containsExactlyInAnyOrder(new Tuple2<>(2, 1), new Tuple2<>(3, 2));
+    }
+
+    @Test
+    void shouldFlatMapToOptionalPair() {
+        assertThat((Stream<Tuple2<Integer, Integer>>) Seq2.seq(List.of(1, 2))
+                .flatMapToOptionalPair(i -> i == 1 ? Optional.empty() : Optional.of(new Tuple2<>(i + 1, i))))
+                .hasSize(1)
+                .containsExactlyInAnyOrder(new Tuple2<>(3, 2));
+    }
+
+    @Test
+    void shouldFlatMapToIterablePair() {
+        assertThat((Stream<Tuple2<Integer, Integer>>) Seq2.seq(List.of(1, 2))
+                .flatMapToIterablePair(i -> List.of(new Tuple2<>(i, i), new Tuple2<>(i + 1, i + 1))))
+                .hasSize(4)
+                .containsExactlyInAnyOrder(new Tuple2<>(1, 1), new Tuple2<>(2, 2),
+                        new Tuple2<>(2, 2), new Tuple2<>(3, 3));
     }
 
 }

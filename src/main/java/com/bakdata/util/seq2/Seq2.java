@@ -1,5 +1,5 @@
 /*
- * Copyright (c), 2019 bakdata GmbH
+ * Copyright (c), 2023 bakdata GmbH
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -469,6 +469,22 @@ public interface Seq2<T> extends Stream<T>, Iterable<T>, BaseSeq<T> {
             final Function<? super T, ? extends Stream<? extends Tuple2<K, V>>> mapper) {
         final Seq2<Tuple2<K, V>> seq = this.flatMap(mapper);
         return PairSeq.seq(seq);
+    }
+
+    /**
+     * Flat map a {@code Seq2} to a {@code PairSeq}
+     */
+    default <K, V> PairSeq<K, V> flatMapToOptionalPair(
+            final Function<? super T, ? extends Optional<? extends Tuple2<K, V>>> mapper) {
+        return this.flatMapToPair(t -> mapper.apply(t).stream());
+    }
+
+    /**
+     * Flat map a {@code Seq2} to a {@code PairSeq}
+     */
+    default <K, V> PairSeq<K, V> flatMapToIterablePair(
+            final Function<? super T, ? extends Iterable<? extends Tuple2<K, V>>> mapper) {
+        return this.flatMapToPair(t -> seq(mapper.apply(t)));
     }
 
     @Override
@@ -1042,6 +1058,15 @@ public interface Seq2<T> extends Stream<T>, Iterable<T>, BaseSeq<T> {
      */
     default <U> Seq2<U> scanRight(final U seed, final BiFunction<? super T, ? super U, ? extends U> function) {
         return seq(this.toSeq().scanRight(seed, function));
+    }
+
+    /**
+     * Map a {@code Seq2} to a {@code PairSeq}
+     *
+     * @see Seq#map(Function)
+     */
+    default <K> PairSeq<K, T> selectKey(final Function<? super T, ? extends K> keyMapper) {
+        return this.mapToPair(keyMapper, Function.identity());
     }
 
     @Override
