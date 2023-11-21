@@ -127,7 +127,7 @@ class PairSeqTest {
         assertThat((Stream<Tuple2<Integer, String>>) PairSeq.seq(Map.of(1, "a", 2, "b"))
                 .flatMapToOptionalPair((k, v) -> k == 1 ? Optional.empty() : Optional.of(new Tuple2<>(k + 1, v + v))))
                 .hasSize(1)
-                .containsExactlyInAnyOrder(new Tuple2<>(2, "bb"));
+                .containsExactlyInAnyOrder(new Tuple2<>(3, "bb"));
     }
 
     @Test
@@ -162,7 +162,7 @@ class PairSeqTest {
         assertThat((Stream<Tuple2<Integer, Integer>>) PairSeq.seq(Map.of(1, "a", 2, "b"))
                 .flatMapKeysToOptionalPair(k -> k == 1 ? Optional.empty() : Optional.of(new Tuple2<>(k + 1, k))))
                 .hasSize(1)
-                .containsExactlyInAnyOrder(new Tuple2<>(2, 3));
+                .containsExactlyInAnyOrder(new Tuple2<>(3, 2));
     }
 
     @Test
@@ -189,7 +189,7 @@ class PairSeqTest {
                                 Optional.empty()))
                 .flatMapValuesToOptionalPair(Function.identity()))
                 .hasSize(1)
-                .containsExactlyInAnyOrder(new Tuple2<>(3, "a"), new Tuple2<>(4, "b"), new Tuple2<>(5, "c"));
+                .containsExactlyInAnyOrder(new Tuple2<>(3, "a"));
     }
 
     @Test
