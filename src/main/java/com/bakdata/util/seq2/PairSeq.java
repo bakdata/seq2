@@ -1,5 +1,5 @@
 /*
- * Copyright (c), 2019 bakdata GmbH
+ * Copyright (c), 2023 bakdata GmbH
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -911,6 +911,16 @@ public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, 
         return seq(this.flatMapKeys(function).keys());
     }
 
+    default <K2, V2> PairSeq<K2, V2> flatMapKeysToOptionalPair(
+            final Function<? super K, ? extends Optional<? extends Tuple2<K2, V2>>> function) {
+        return this.flatMapKeysToPair(k -> function.apply(k).stream());
+    }
+
+    default <K2, V2> PairSeq<K2, V2> flatMapKeysToIterablePair(
+            final Function<? super K, ? extends Iterable<? extends Tuple2<K2, V2>>> function) {
+        return this.flatMapKeysToPair(k -> seq(function.apply(k)));
+    }
+
     default <K2> PairSeq<K2, V> flatMapKeysToOptional(final Function<? super K, Optional<? extends K2>> function) {
         return this.flatMapKeys(k -> function.apply(k).stream());
     }
@@ -973,6 +983,16 @@ public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, 
         return seq(seq2);
     }
 
+    default <K2, V2> PairSeq<K2, V2> flatMapToOptionalPair(
+            final BiFunction<? super K, ? super V, ? extends Optional<? extends Tuple2<K2, V2>>> mapper) {
+        return this.flatMapToPair((k, v) -> mapper.apply(k, v).stream());
+    }
+
+    default <K2, V2> PairSeq<K2, V2> flatMapToIterablePair(
+            final BiFunction<? super K, ? super V, ? extends Iterable<? extends Tuple2<K2, V2>>> mapper) {
+        return this.flatMapToPair((k, v) -> seq(mapper.apply(k, v)));
+    }
+
     default <V2> PairSeq<K, V2> flatMapValues(final Function<? super V, ? extends Stream<? extends V2>> function) {
         return this.flatMapToPair((k, v) -> function.apply(v).map(v2 -> new Tuple2<>(k, v2)));
     }
@@ -980,6 +1000,16 @@ public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, 
     default <K2, V2> PairSeq<K2, V2> flatMapValuesToPair(
             final Function<? super V, ? extends Stream<? extends Tuple2<K2, V2>>> function) {
         return seq(this.flatMapValues(function).values());
+    }
+
+    default <K2, V2> PairSeq<K2, V2> flatMapValuesToOptionalPair(
+            final Function<? super V, ? extends Optional<? extends Tuple2<K2, V2>>> function) {
+        return this.flatMapValuesToPair(v -> function.apply(v).stream());
+    }
+
+    default <K2, V2> PairSeq<K2, V2> flatMapValuesToIterablePair(
+            final Function<? super V, ? extends Iterable<? extends Tuple2<K2, V2>>> function) {
+        return this.flatMapValuesToPair(v -> seq(function.apply(v)));
     }
 
     default <V2> PairSeq<K, V2> flatMapValuesToOptional(final Function<? super V, Optional<? extends V2>> function) {
@@ -2296,6 +2326,10 @@ public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, 
     default <U> Seq2<U> scanRight(final U seed,
             final BiFunction<? super Tuple2<K, V>, ? super U, ? extends U> function) {
         return this.toSeq2().scanRight(seed, function);
+    }
+
+    default <K2> PairSeq<K2, Tuple2<K, V>> selectKey(final BiFunction<? super K, ? super V, ? extends K2> keyMapper) {
+        return this.mapToPair(keyMapper, Tuple2::new);
     }
 
     @Override

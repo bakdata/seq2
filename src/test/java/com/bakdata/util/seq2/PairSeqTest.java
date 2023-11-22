@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -113,6 +114,32 @@ class PairSeqTest {
     }
 
     @Test
+    void shouldFlatMapToPair() {
+        assertThat((Stream<Tuple2<Integer, String>>) PairSeq.seq(Map.of(1, "a", 2, "b"))
+                .flatMapToPair((k, v) -> PairSeq.seq(Map.of(k, v, k + 1, v + v))))
+                .hasSize(4)
+                .containsExactlyInAnyOrder(new Tuple2<>(1, "a"), new Tuple2<>(2, "aa"),
+                        new Tuple2<>(2, "b"), new Tuple2<>(3, "bb"));
+    }
+
+    @Test
+    void shouldFlatMapToOptionalPair() {
+        assertThat((Stream<Tuple2<Integer, String>>) PairSeq.seq(Map.of(1, "a", 2, "b"))
+                .flatMapToOptionalPair((k, v) -> k == 1 ? Optional.empty() : Optional.of(new Tuple2<>(k + 1, v + v))))
+                .hasSize(1)
+                .containsExactlyInAnyOrder(new Tuple2<>(3, "bb"));
+    }
+
+    @Test
+    void shouldFlatMapToIterablePair() {
+        assertThat((Stream<Tuple2<Integer, String>>) PairSeq.seq(Map.of(1, "a", 2, "b"))
+                .flatMapToIterablePair((k, v) -> List.of(new Tuple2<>(k, v), new Tuple2<>(k + 1, v + v))))
+                .hasSize(4)
+                .containsExactlyInAnyOrder(new Tuple2<>(1, "a"), new Tuple2<>(2, "aa"),
+                        new Tuple2<>(2, "b"), new Tuple2<>(3, "bb"));
+    }
+
+    @Test
     void shouldFlatMapValues() {
         assertThat((Stream<Tuple2<Integer, Character>>) PairSeq.seq(Map.of(1, "ab", 2, "bc"))
                 .flatMapValues(v -> v.chars().mapToObj(i -> (char) i)))
@@ -131,9 +158,46 @@ class PairSeqTest {
     }
 
     @Test
+    void shouldFlatMapKeysToOptionalPair() {
+        assertThat((Stream<Tuple2<Integer, Integer>>) PairSeq.seq(Map.of(1, "a", 2, "b"))
+                .flatMapKeysToOptionalPair(k -> k == 1 ? Optional.empty() : Optional.of(new Tuple2<>(k + 1, k))))
+                .hasSize(1)
+                .containsExactlyInAnyOrder(new Tuple2<>(3, 2));
+    }
+
+    @Test
+    void shouldFlatMapKeysToIterablePair() {
+        assertThat((Stream<Tuple2<Integer, Integer>>) PairSeq.seq(Map.of(1, "a", 2, "b"))
+                .flatMapKeysToIterablePair(k -> List.of(new Tuple2<>(k, k), new Tuple2<>(k + 1, k + 1))))
+                .hasSize(4)
+                .containsExactlyInAnyOrder(new Tuple2<>(1, 1), new Tuple2<>(2, 2),
+                        new Tuple2<>(2, 2), new Tuple2<>(3, 3));
+    }
+
+    @Test
     void shouldFlatMapValuesToPair() {
         assertThat((Stream<Tuple2<Integer, String>>) PairSeq.seq(Map.of(1, Map.of(3, "a"), 2, Map.of(4, "b", 5, "c")))
                 .flatMapValuesToPair(PairSeq::seq))
+                .hasSize(3)
+                .containsExactlyInAnyOrder(new Tuple2<>(3, "a"), new Tuple2<>(4, "b"), new Tuple2<>(5, "c"));
+    }
+
+    @Test
+    void shouldFlatMapValuesToOptionalPair() {
+        assertThat((Stream<Tuple2<Integer, String>>) PairSeq.seq(
+                        Map.<Integer, Optional<Tuple2<Integer, String>>>of(1, Optional.of(new Tuple2<>(3, "a")), 2,
+                                Optional.empty()))
+                .flatMapValuesToOptionalPair(Function.identity()))
+                .hasSize(1)
+                .containsExactlyInAnyOrder(new Tuple2<>(3, "a"));
+    }
+
+    @Test
+    void shouldFlatMapValuesToIterablePair() {
+        assertThat((Stream<Tuple2<Integer, String>>) PairSeq.seq(
+                        Map.of(1, List.of(new Tuple2<>(3, "a")), 2, List.of(new Tuple2<>(4, "b"), new Tuple2<>(5,
+                                "c"))))
+                .flatMapValuesToIterablePair(Function.identity()))
                 .hasSize(3)
                 .containsExactlyInAnyOrder(new Tuple2<>(3, "a"), new Tuple2<>(4, "b"), new Tuple2<>(5, "c"));
     }
@@ -392,6 +456,15 @@ class PairSeqTest {
                 .toStringOrEmpty(" ", "^", "$"))
                 .hasValue("^(1, a) (2, b) (3, c)$");
         assertThat(PairSeq.empty().toStringOrEmpty(" ", "^", "$")).isNotPresent();
+    }
+
+    @Test
+    void shouldSelectKey() {
+        assertThat((Stream<Tuple2<String, Tuple2<Integer, String>>>) PairSeq.seq(Map.of(1, "a", 2, "b"))
+                .selectKey((k, v) -> k + v))
+                .hasSize(2)
+                .containsExactlyInAnyOrder(new Tuple2<>("1a", new Tuple2<>(1, "a")),
+                        new Tuple2<>("2b", new Tuple2<>(2, "b")));
     }
 
 }
