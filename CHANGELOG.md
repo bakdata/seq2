@@ -3,6 +3,8 @@
 
 - no changes!
 
+- no changes!
+
 
 ## [1.0.6](https://github.com/bakdata/seq2/tree/1.0.6) (2023-02-21)
 [View commits](https://github.com/bakdata/seq2/compare/1.0.5...1.0.6)
