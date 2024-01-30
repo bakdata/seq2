@@ -1,5 +1,5 @@
 /*
- * Copyright (c), 2023 bakdata GmbH
+ * Copyright (c), 2024 bakdata GmbH
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -42,7 +42,7 @@ import org.jooq.lambda.Window;
 import org.jooq.lambda.tuple.Tuple2;
 
 @SuppressWarnings("deprecation")
-public interface Seq2<T> extends Stream<T>, Iterable<T>, BaseSeq<T> {
+public interface Seq2<T> extends Iterable<T>, BaseSeq<T> {
     /**
      * @see Seq#empty()
      */

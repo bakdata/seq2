@@ -1,5 +1,5 @@
 /*
- * Copyright (c), 2023 bakdata GmbH
+ * Copyright (c), 2024 bakdata GmbH
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -34,7 +34,7 @@ import java.util.stream.Stream;
 import org.jooq.lambda.Seq;
 import org.jooq.lambda.exception.TooManyElementsException;
 
-public interface BaseSeq<T> {
+public interface BaseSeq<T> extends Stream<T> {
     /**
      * @see Seq#avg()
      */
