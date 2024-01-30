@@ -1,5 +1,5 @@
 /*
- * Copyright (c), 2023 bakdata GmbH
+ * Copyright (c), 2024 bakdata GmbH
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -47,7 +47,7 @@ import org.jooq.lambda.Window;
 import org.jooq.lambda.tuple.Tuple2;
 
 @SuppressWarnings("deprecation")
-public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, V>>, BaseSeq<Tuple2<K, V>> {
+public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
     /**
      * @see Seq#empty()
      */
@@ -1044,7 +1044,7 @@ public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, 
     @Override
     @Deprecated
     default void forEach(final Consumer<? super Tuple2<K, V>> action) {
-        this.toSeq2().forEach(action);
+        BaseSeq.super.forEach(action);
     }
 
     /**
@@ -2492,11 +2492,6 @@ public interface PairSeq<K, V> extends Stream<Tuple2<K, V>>, Iterable<Tuple2<K, 
      */
     default Tuple2<Optional<Tuple2<K, V>>, PairSeq<K, V>> splitAtHead() {
         return this.toSeq2().splitAtHead().map2(PairSeq::seq);
-    }
-
-    @Override
-    default Spliterator<Tuple2<K, V>> spliterator() {
-        return this.toSeq2().spliterator();
     }
 
     /**

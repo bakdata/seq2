@@ -1,5 +1,5 @@
 /*
- * Copyright (c), 2023 bakdata GmbH
+ * Copyright (c), 2024 bakdata GmbH
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -42,7 +42,7 @@ import org.jooq.lambda.Window;
 import org.jooq.lambda.tuple.Tuple2;
 
 @SuppressWarnings("deprecation")
-public interface Seq2<T> extends Stream<T>, Iterable<T>, BaseSeq<T> {
+public interface Seq2<T> extends BaseSeq<T> {
     /**
      * @see Seq#empty()
      */
@@ -485,11 +485,6 @@ public interface Seq2<T> extends Stream<T>, Iterable<T>, BaseSeq<T> {
     default <K, V> PairSeq<K, V> flatMapToIterablePair(
             final Function<? super T, ? extends Iterable<? extends Tuple2<K, V>>> mapper) {
         return this.flatMapToPair(t -> seq(mapper.apply(t)));
-    }
-
-    @Override
-    default void forEach(final Consumer<? super T> action) {
-        this.toSeq().forEach(action);
     }
 
     @Override
@@ -1172,11 +1167,6 @@ public interface Seq2<T> extends Stream<T>, Iterable<T>, BaseSeq<T> {
      */
     default Tuple2<Optional<T>, Seq2<T>> splitAtHead() {
         return this.toSeq().splitAtHead().map2(Seq2::seq);
-    }
-
-    @Override
-    default Spliterator<T> spliterator() {
-        return this.toSeq().spliterator();
     }
 
     /**
