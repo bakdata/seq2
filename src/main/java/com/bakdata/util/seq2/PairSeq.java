@@ -1044,7 +1044,7 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
     @Override
     @Deprecated
     default void forEach(final Consumer<? super Tuple2<K, V>> action) {
-        this.toSeq2().forEach(action);
+        BaseSeq.super.forEach(action);
     }
 
     /**
