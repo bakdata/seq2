@@ -47,7 +47,7 @@ import org.jooq.lambda.Window;
 import org.jooq.lambda.tuple.Tuple2;
 
 @SuppressWarnings("deprecation")
-public interface PairSeq<K, V> extends Iterable<Tuple2<K, V>>, BaseSeq<Tuple2<K, V>> {
+public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
     /**
      * @see Seq#empty()
      */
@@ -2492,11 +2492,6 @@ public interface PairSeq<K, V> extends Iterable<Tuple2<K, V>>, BaseSeq<Tuple2<K,
      */
     default Tuple2<Optional<Tuple2<K, V>>, PairSeq<K, V>> splitAtHead() {
         return this.toSeq2().splitAtHead().map2(PairSeq::seq);
-    }
-
-    @Override
-    default Spliterator<Tuple2<K, V>> spliterator() {
-        return this.toSeq2().spliterator();
     }
 
     /**

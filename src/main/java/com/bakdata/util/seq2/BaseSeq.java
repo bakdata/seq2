@@ -22,7 +22,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalLong;
 import java.util.Set;
+import java.util.Spliterator;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -34,7 +36,7 @@ import java.util.stream.Stream;
 import org.jooq.lambda.Seq;
 import org.jooq.lambda.exception.TooManyElementsException;
 
-public interface BaseSeq<T> extends Stream<T> {
+public interface BaseSeq<T> extends Iterable<T>, Stream<T> {
     /**
      * @see Seq#avg()
      */
@@ -295,6 +297,11 @@ public interface BaseSeq<T> extends Stream<T> {
         return this.toSeq().foldRight(seed, function);
     }
 
+    @Override
+    default void forEach(final Consumer<? super T> action) {
+        this.toSeq().forEach(action);
+    }
+
     /**
      * @see Seq#format()
      */
@@ -533,6 +540,11 @@ public interface BaseSeq<T> extends Stream<T> {
      */
     default void printOut() {
         this.toSeq().printOut();
+    }
+
+    @Override
+    default Spliterator<T> spliterator() {
+        return this.toSeq().spliterator();
     }
 
     /**
