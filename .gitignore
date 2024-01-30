@@ -1,6 +1,5 @@
 .*
 !.gitignore
-!.github
 !.gitlab-ci.yml
 build/
 out/
