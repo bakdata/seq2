@@ -4,10 +4,10 @@ description = "This library is an extension to the great jOOλ library"
 plugins {
     `java-library`
     id("net.researchgate.release") version "3.0.2"
-    id("com.bakdata.sonar") version "1.1.9"
-    id("com.bakdata.sonatype") version "1.1.9"
-    id("org.hildan.github.changelog") version "1.12.1"
-    id("io.freefair.lombok") version "6.6.3"
+    id("com.bakdata.sonar") version "1.1.17"
+    id("com.bakdata.sonatype") version "1.1.14"
+    id("org.hildan.github.changelog") version "2.2.0"
+    id("io.freefair.lombok") version "8.4"
 }
 
 allprojects {
@@ -41,8 +41,9 @@ allprojects {
     apply(plugin = "java-library")
 
     configure<JavaPluginExtension> {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(11)
+        }
     }
 
     dependencies {
