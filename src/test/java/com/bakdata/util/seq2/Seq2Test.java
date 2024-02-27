@@ -1,5 +1,5 @@
 /*
- * Copyright (c), 2023 bakdata GmbH
+ * Copyright (c), 2024 bakdata GmbH
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -65,6 +65,14 @@ class Seq2Test {
                 .selectKey(i -> i + 1))
                 .hasSize(2)
                 .containsExactlyInAnyOrder(new Tuple2<>(2, 1), new Tuple2<>(3, 2));
+    }
+
+    @Test
+    void shouldSelectValue() {
+        assertThat((Stream<Tuple2<Integer, Integer>>) Seq2.seq(List.of(1, 2))
+                .selectValue(i -> i + 1))
+                .hasSize(2)
+                .containsExactlyInAnyOrder(new Tuple2<>(1, 2), new Tuple2<>(2, 3));
     }
 
     @Test

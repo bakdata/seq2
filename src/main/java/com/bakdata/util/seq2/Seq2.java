@@ -1064,6 +1064,15 @@ public interface Seq2<T> extends BaseSeq<T> {
         return this.mapToPair(keyMapper, Function.identity());
     }
 
+    /**
+     * Map a {@code Seq2} to a {@code PairSeq}
+     *
+     * @see Seq#map(Function)
+     */
+    default <V> PairSeq<T, V> selectValue(final Function<? super T, ? extends V> valueMapper) {
+        return this.mapToPair(Function.identity(), valueMapper);
+    }
+
     @Override
     default Seq2<T> sequential() {
         return seq(this.toSeq().sequential());
