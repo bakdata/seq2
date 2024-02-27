@@ -1,4 +1,6 @@
 # Change Log
+- no changes!
+
 
 ## [1.0.11](https://github.com/bakdata/seq2/tree/1.0.11) (2024-01-10)
 [View commits](https://github.com/bakdata/seq2/compare/1.0.10...1.0.11)
