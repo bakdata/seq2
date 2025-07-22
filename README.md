@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/bakdata/public/_apis/build/status/bakdata.seq2?branchName=master)](https://dev.azure.com/bakdata/public/_build/latest?definitionId=21&branchName=master)
+[![Build and Publish](https://github.com/bakdata/seq2/actions/workflows/build-and-publish.yaml/badge.svg)](https://github.com/bakdata/seq2/actions/workflows/build-and-publish.yaml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.bakdata.seq2%3Aseq2&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.bakdata.seq2%3Aseq2)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.bakdata.seq2%3Aseq2&metric=coverage)](https://sonarcloud.io/dashboard?id=com.bakdata.seq2%3Aseq2)
 [![Maven](https://img.shields.io/maven-central/v/com.bakdata.seq2/seq2.svg)](https://search.maven.org/search?q=g:com.bakdata.seq2%20AND%20a:seq2&core=gav)
