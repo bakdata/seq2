@@ -1,6 +1,30 @@
 # Change Log
-- no changes!
 
+## [1.0.13](https://github.com/bakdata/seq2/tree/1.0.13) (2025-07-22)
+[View commits](https://github.com/bakdata/seq2/compare/1.0.13...1.0.13)
+
+
+## [1.0.13](https://github.com/bakdata/seq2/tree/1.0.13) (2025-07-22)
+[View commits](https://github.com/bakdata/seq2/compare/1.0.12...1.0.13)
+
+**Closed issues:**
+
+- Support Java 17 [\#5](https://github.com/bakdata/seq2/issues/5)
+
+**Merged pull requests:**
+
+- add method keyedByIndex [\#18](https://github.com/bakdata/seq2/pull/18) ([@tobbber](https://github.com/tobbber))
+- Upgrade Gradle to 8.14 [\#19](https://github.com/bakdata/seq2/pull/19) ([@philipp94831](https://github.com/philipp94831))
+
+## [1.0.12](https://github.com/bakdata/seq2/tree/1.0.12) (2024-02-27)
+[View commits](https://github.com/bakdata/seq2/compare/1.0.11...1.0.12)
+
+**Merged pull requests:**
+
+- Add selectValue method [\#16](https://github.com/bakdata/seq2/pull/16) ([@philipp94831](https://github.com/philipp94831))
+- Upgrade to Gradle 8.4 [\#17](https://github.com/bakdata/seq2/pull/17) ([@philipp94831](https://github.com/philipp94831))
+- Switch to GitHub Actions [\#14](https://github.com/bakdata/seq2/pull/14) ([@philipp94831](https://github.com/philipp94831))
+- Build in CI using JDK 17 [\#15](https://github.com/bakdata/seq2/pull/15) ([@philipp94831](https://github.com/philipp94831))
 
 ## [1.0.11](https://github.com/bakdata/seq2/tree/1.0.11) (2024-01-10)
 [View commits](https://github.com/bakdata/seq2/compare/1.0.10...1.0.11)
