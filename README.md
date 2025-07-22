@@ -12,7 +12,7 @@ It mainly provides native handling of pair streams.
 
 ```java
 final Seq2<String> words = Seq2.of("foo", "bar", "foo");
-final Map<String, Integer> wordCounts = this.words.mapToPair(Function.identity(), s -> 1)
+final Map<String, Integer> wordCounts = words.mapToPair(Function.identity(), s -> 1)
         .reduceByKey(Integer::sum)
         .toMap();
 System.out.println(wordCounts);
