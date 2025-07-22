@@ -1349,7 +1349,7 @@ public interface Seq2<T> extends BaseSeq<T> {
      * @return a {@link PairSeq} whose elements are the index paired with the original element (index, element)
      */
     default PairSeq<Long, T> keyedByIndex() {
-        return PairSeq.seq(this.toSeq().zipWithIndex()).swapped();
+        return this.zipWithIndex().swapped();
     }
 
     /**
