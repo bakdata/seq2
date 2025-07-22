@@ -92,4 +92,26 @@ class Seq2Test {
                         new Tuple2<>(2, 2), new Tuple2<>(3, 3));
     }
 
+    @Test
+    void shouldZipWithIndex() {
+        assertThat((Stream<Tuple2<Integer, Long>>) Seq2.seq(List.of(10, 11, 12))
+                .zipWithIndex()
+        ).containsExactlyInAnyOrder(
+                new Tuple2<>(10, 0L),
+                new Tuple2<>(11, 1L),
+                new Tuple2<>(12, 2L)
+        );
+    }
+
+    @Test
+    void shouldPairWithIndexKey() {
+        assertThat((Stream<Tuple2<Long, Integer>>) Seq2.seq(List.of(10, 11, 12))
+                .keyedByIndex()
+        ).containsExactlyInAnyOrder(
+                new Tuple2<>(0L, 10),
+                new Tuple2<>(1L, 11),
+                new Tuple2<>(2L, 12)
+        );
+    }
+
 }
