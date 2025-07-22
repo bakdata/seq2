@@ -1,5 +1,5 @@
 /*
- * Copyright (c), 2024 bakdata GmbH
+ * Copyright (c), 2025 bakdata GmbH
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -1332,8 +1332,24 @@ public interface Seq2<T> extends BaseSeq<T> {
         return this.zip(other.toSeq());
     }
 
+    /**
+     * Zips each element of this sequence with its zero-based index.
+     *
+     * @return a {@link PairSeq} whose elements are the original elements paired with their respective index (element,
+     * index)
+     * @see Seq#zipWithIndex()
+     */
     default PairSeq<T, Long> zipWithIndex() {
         return PairSeq.seq(this.toSeq().zipWithIndex());
+    }
+
+    /**
+     * Similar to {@link #zipWithIndex()}, but index is used as {@link PairSeq} key.
+     *
+     * @return a {@link PairSeq} whose elements are the index paired with the original element (index, element)
+     */
+    default PairSeq<Long, T> keyedByIndex() {
+        return this.zipWithIndex().swapped();
     }
 
     /**
