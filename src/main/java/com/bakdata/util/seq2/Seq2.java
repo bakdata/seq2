@@ -1336,6 +1336,10 @@ public interface Seq2<T> extends BaseSeq<T> {
         return PairSeq.seq(this.toSeq().zipWithIndex());
     }
 
+    default PairSeq<Long, T> keyedByIndex() {
+        return PairSeq.seq(this.toSeq().zipWithIndex()).swapped();
+    }
+
     /**
      * @see Seq#zipWithIndex()
      */
