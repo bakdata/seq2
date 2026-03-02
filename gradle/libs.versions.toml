@@ -1,5 +1,5 @@
 [versions]
-junit = "5.14.3"
+junit = "6.0.3"
 
 [libraries]
 jool = { group = "org.jooq", name = "jool", version = "0.9.15" }
