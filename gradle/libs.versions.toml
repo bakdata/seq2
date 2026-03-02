@@ -1,0 +1,15 @@
+[versions]
+junit = "5.14.3"
+
+[libraries]
+jool = { group = "org.jooq", name = "jool", version = "0.9.15" }
+
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit" }
+assertj = { group = "org.assertj", name = "assertj-core", version = "3.27.7" }
+
+[plugins]
+release = { id = "com.bakdata.release", version = "2.1.0" }
+sonar = { id = "com.bakdata.sonar", version = "2.1.0" }
+sonatype = { id = "com.bakdata.sonatype", version = "2.1.0" }
+lombok = { id = "io.freefair.lombok", version = "9.2.0" }
