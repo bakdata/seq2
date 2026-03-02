@@ -4,4 +4,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'seq2'
+rootProject.name = "seq2"
