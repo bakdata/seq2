@@ -2,7 +2,7 @@
 junit = "5.14.4"
 
 [libraries]
-jool = { group = "org.jooq", name = "jool", version = "0.9.15" }
+jool = { group = "org.jooq", name = "jool", version = "0.9.16" }
 
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit" }
