@@ -2,7 +2,7 @@
 junit = "6.1.3"
 
 [libraries]
-jool = { group = "org.jooq", name = "jool", version = "0.9.15" }
+jool = { group = "org.jooq", name = "jool", version = "0.9.16" }
 
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit" }
@@ -12,4 +12,4 @@ assertj = { group = "org.assertj", name = "assertj-core", version = "3.27.7" }
 release = { id = "com.bakdata.release", version = "2.2.1" }
 sonar = { id = "com.bakdata.sonar", version = "2.2.1" }
 sonatype = { id = "com.bakdata.sonatype", version = "2.2.1" }
-lombok = { id = "io.freefair.lombok", version = "9.8.2" }
+lombok = { id = "io.freefair.lombok", version = "9.8.3" }
