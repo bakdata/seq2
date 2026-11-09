@@ -637,44 +637,94 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.countDistinctBy(t -> t.map(function), predicate);
     }
 
+    /**
+     * Count the distinct keys in this stream.
+     *
+     * @see Seq#countDistinct()
+     */
     default long countDistinctKeys() {
         return this.keys().countDistinct();
     }
 
+    /**
+     * Count the distinct keys in this stream for which the predicate evaluates to true.
+     *
+     * @see Seq#countDistinct(Predicate)
+     */
     default long countDistinctKeys(final Predicate<? super K> predicate) {
         return this.keys().countDistinct(predicate);
     }
 
+    /**
+     * Count the distinct keys in this stream as mapped by the function.
+     *
+     * @see Seq#countDistinctBy(Function)
+     */
     default <U> long countDistinctKeysBy(final Function<? super K, ? extends U> function) {
         return this.keys().countDistinctBy(function);
     }
 
+    /**
+     * Count the distinct keys in this stream as mapped by the function for which the predicate evaluates to true.
+     *
+     * @see Seq#countDistinctBy(Function, Predicate)
+     */
     default <U> long countDistinctKeysBy(final Function<? super K, ? extends U> function,
             final Predicate<? super U> predicate) {
         return this.keys().countDistinctBy(function, predicate);
     }
 
+    /**
+     * Count the distinct values in this stream.
+     *
+     * @see Seq#countDistinct()
+     */
     default long countDistinctValues() {
         return this.values().countDistinct();
     }
 
+    /**
+     * Count the distinct values in this stream for which the predicate evaluates to true.
+     *
+     * @see Seq#countDistinct(Predicate)
+     */
     default long countDistinctValues(final Predicate<? super V> predicate) {
         return this.values().countDistinct(predicate);
     }
 
+    /**
+     * Count the distinct values in this stream as mapped by the function.
+     *
+     * @see Seq#countDistinctBy(Function)
+     */
     default <U> long countDistinctValuesBy(final Function<? super V, ? extends U> function) {
         return this.values().countDistinctBy(function);
     }
 
+    /**
+     * Count the distinct values in this stream as mapped by the function for which the predicate evaluates to true.
+     *
+     * @see Seq#countDistinctBy(Function, Predicate)
+     */
     default <U> long countDistinctValuesBy(final Function<? super V, ? extends U> function,
             final Predicate<? super U> predicate) {
         return this.values().countDistinctBy(function, predicate);
     }
 
+    /**
+     * Count the keys in this stream for which the predicate evaluates to true.
+     *
+     * @see Seq#count(Predicate)
+     */
     default long countKeys(final Predicate<? super K> predicate) {
         return this.keys().count(predicate);
     }
 
+    /**
+     * Count the values in this stream for which the predicate evaluates to true.
+     *
+     * @see Seq#count(Predicate)
+     */
     default long countValues(final Predicate<? super V> predicate) {
         return this.values().count(predicate);
     }
@@ -820,26 +870,52 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.filter(this.unwrap(predicate));
     }
 
+    /**
+     * Keep only pairs whose key matches the predicate.
+     *
+     * @see Seq#filter(Predicate)
+     */
     default PairSeq<K, V> filterKeys(final Predicate<? super K> predicate) {
         return seq(this.toSeq2().filter(t -> predicate.test(t.v1())));
     }
 
+    /**
+     * Remove pairs whose key matches the predicate.
+     *
+     * @see Seq2#filterNot(Predicate)
+     */
     default PairSeq<K, V> filterKeysNot(final Predicate<? super K> predicate) {
         return seq(this.toSeq2().filterNot(t -> predicate.test(t.v1())));
     }
 
+    /**
+     * @see Seq2#filterNot(Predicate)
+     */
     default PairSeq<K, V> filterNot(final Predicate<? super Tuple2<K, V>> predicate) {
         return seq(this.toSeq2().filterNot(predicate));
     }
 
+    /**
+     * @see Seq2#filterNot(Predicate)
+     */
     default PairSeq<K, V> filterNot(final BiPredicate<? super K, ? super V> predicate) {
         return seq(this.toSeq2().filterNot(this.unwrap(predicate)));
     }
 
+    /**
+     * Keep only pairs whose value matches the predicate.
+     *
+     * @see Seq#filter(Predicate)
+     */
     default PairSeq<K, V> filterValues(final Predicate<? super V> predicate) {
         return seq(this.toSeq2().filter(t -> predicate.test(t.v2())));
     }
 
+    /**
+     * Remove pairs whose value matches the predicate.
+     *
+     * @see Seq2#filterNot(Predicate)
+     */
     default PairSeq<K, V> filterValuesNot(final Predicate<? super V> predicate) {
         return seq(this.toSeq2().filterNot(t -> predicate.test(t.v2())));
     }
@@ -902,29 +978,59 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.flatMap(this.unwrap(mapper));
     }
 
+    /**
+     * Map each key to a stream of new keys, retaining the value for each new key.
+     *
+     * @see Seq#flatMap(Function)
+     */
     default <K2> PairSeq<K2, V> flatMapKeys(final Function<? super K, ? extends Stream<? extends K2>> function) {
         return this.flatMapToPair((k, v) -> function.apply(k).map(k2 -> new Tuple2<>(k2, v)));
     }
 
+    /**
+     * Map each key to a stream of pairs. The original value is discarded.
+     *
+     * @see Seq#flatMap(Function)
+     */
     default <K2, V2> PairSeq<K2, V2> flatMapKeysToPair(
             final Function<? super K, ? extends Stream<? extends Tuple2<K2, V2>>> function) {
         return seq(this.flatMapKeys(function).keys());
     }
 
+    /**
+     * Map each key to an optional pair. The original value is discarded.
+     *
+     * @see #flatMapKeysToPair(Function)
+     */
     default <K2, V2> PairSeq<K2, V2> flatMapKeysToOptionalPair(
             final Function<? super K, ? extends Optional<? extends Tuple2<K2, V2>>> function) {
         return this.flatMapKeysToPair(k -> function.apply(k).stream());
     }
 
+    /**
+     * Map each key to an iterable of pairs. The original value is discarded.
+     *
+     * @see #flatMapKeysToPair(Function)
+     */
     default <K2, V2> PairSeq<K2, V2> flatMapKeysToIterablePair(
             final Function<? super K, ? extends Iterable<? extends Tuple2<K2, V2>>> function) {
         return this.flatMapKeysToPair(k -> seq(function.apply(k)));
     }
 
+    /**
+     * Map each key to an optional new key, retaining the value.
+     *
+     * @see #flatMapKeys(Function)
+     */
     default <K2> PairSeq<K2, V> flatMapKeysToOptional(final Function<? super K, Optional<? extends K2>> function) {
         return this.flatMapKeys(k -> function.apply(k).stream());
     }
 
+    /**
+     * Map each key to an iterable of new keys, retaining the value for each new key.
+     *
+     * @see #flatMapKeys(Function)
+     */
     default <K2> PairSeq<K2, V> flatMapKeysToIterable(final Function<? super K, ? extends Iterable<? extends K2>> function) {
         return this.flatMapKeys(k -> Seq2.seq(function.apply(k)));
     }
@@ -977,45 +1083,90 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.flatMapToLong(t -> t.map(mapper));
     }
 
+    /**
+     * Map each pair to a stream of new pairs.
+     *
+     * @see Seq#flatMap(Function)
+     */
     default <K2, V2> PairSeq<K2, V2> flatMapToPair(
             final BiFunction<? super K, ? super V, ? extends Stream<? extends Tuple2<K2, V2>>> mapper) {
         final Seq2<Tuple2<K2, V2>> seq2 = this.flatMap(t -> t.map(mapper));
         return seq(seq2);
     }
 
+    /**
+     * Map each pair to an optional new pair.
+     *
+     * @see #flatMapToPair(BiFunction)
+     */
     default <K2, V2> PairSeq<K2, V2> flatMapToOptionalPair(
             final BiFunction<? super K, ? super V, ? extends Optional<? extends Tuple2<K2, V2>>> mapper) {
         return this.flatMapToPair((k, v) -> mapper.apply(k, v).stream());
     }
 
+    /**
+     * Map each pair to an iterable of new pairs.
+     *
+     * @see #flatMapToPair(BiFunction)
+     */
     default <K2, V2> PairSeq<K2, V2> flatMapToIterablePair(
             final BiFunction<? super K, ? super V, ? extends Iterable<? extends Tuple2<K2, V2>>> mapper) {
         return this.flatMapToPair((k, v) -> seq(mapper.apply(k, v)));
     }
 
+    /**
+     * Map each value to a stream of new values, retaining the key for each new value.
+     *
+     * @see Seq#flatMap(Function)
+     */
     default <V2> PairSeq<K, V2> flatMapValues(final Function<? super V, ? extends Stream<? extends V2>> function) {
         return this.flatMapToPair((k, v) -> function.apply(v).map(v2 -> new Tuple2<>(k, v2)));
     }
 
+    /**
+     * Map each value to a stream of pairs. The original key is discarded.
+     *
+     * @see Seq#flatMap(Function)
+     */
     default <K2, V2> PairSeq<K2, V2> flatMapValuesToPair(
             final Function<? super V, ? extends Stream<? extends Tuple2<K2, V2>>> function) {
         return seq(this.flatMapValues(function).values());
     }
 
+    /**
+     * Map each value to an optional pair. The original key is discarded.
+     *
+     * @see #flatMapValuesToPair(Function)
+     */
     default <K2, V2> PairSeq<K2, V2> flatMapValuesToOptionalPair(
             final Function<? super V, ? extends Optional<? extends Tuple2<K2, V2>>> function) {
         return this.flatMapValuesToPair(v -> function.apply(v).stream());
     }
 
+    /**
+     * Map each value to an iterable of pairs. The original key is discarded.
+     *
+     * @see #flatMapValuesToPair(Function)
+     */
     default <K2, V2> PairSeq<K2, V2> flatMapValuesToIterablePair(
             final Function<? super V, ? extends Iterable<? extends Tuple2<K2, V2>>> function) {
         return this.flatMapValuesToPair(v -> seq(function.apply(v)));
     }
 
+    /**
+     * Map each value to an optional new value, retaining the key.
+     *
+     * @see #flatMapValues(Function)
+     */
     default <V2> PairSeq<K, V2> flatMapValuesToOptional(final Function<? super V, Optional<? extends V2>> function) {
         return this.flatMapValues(v -> function.apply(v).stream());
     }
 
+    /**
+     * Map each value to an iterable of new values, retaining the key for each new value.
+     *
+     * @see #flatMapValues(Function)
+     */
     default <V2> PairSeq<K, V2> flatMapValuesToIterable(final Function<? super V, ? extends Iterable<? extends V2>> function) {
         return this.flatMapValues(v -> Seq2.seq(function.apply(v)));
     }
@@ -1123,6 +1274,11 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return BaseSeq.super.groupBy(classifier, mapFactory, downstream);
     }
 
+    /**
+     * Group the values of this stream by key.
+     *
+     * @see Seq#grouped(Function)
+     */
     default PairSeq<K, Seq2<V>> groupByKey() {
         final PairSeq<K, Seq2<Tuple2<K, V>>> grouped = this.toSeq2().grouped(Tuple2::v1);
         return grouped.mapValues(s -> s.map(Tuple2::v2));
@@ -1234,6 +1390,11 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.innerJoin(other.toSeq2(), predicate);
     }
 
+    /**
+     * Inner join two streams on equal keys.
+     *
+     * @see Seq#innerJoin(Seq, BiPredicate)
+     */
     default <V1> PairSeq<K, Tuple2<V, V1>> innerJoinByKey(final PairSeq<K, V1> other) {
         final PairSeq<Tuple2<K, V>, Tuple2<K, V1>> joined = this.innerJoin(other, this.byKey());
         return joined.mapToPair((left, right) -> left.v1(), (k, v) -> new Tuple2<>(k.v2(), v.v2()));
@@ -1247,6 +1408,11 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.toSeq2().innerSelfJoin(predicate);
     }
 
+    /**
+     * Inner join this stream with itself on equal keys.
+     *
+     * @see Seq#innerSelfJoin(BiPredicate)
+     */
     default PairSeq<K, Tuple2<V, V>> innerSelfJoinByKey() {
         final PairSeq<Tuple2<K, V>, Tuple2<K, V>> joined = this.innerSelfJoin(this.byKey());
         return joined.mapToPair((left, right) -> left.v1(), (k, v) -> new Tuple2<>(k.v2(), v.v2()));
@@ -1278,6 +1444,11 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.toSeq2().iterator();
     }
 
+    /**
+     * Get the keys of this stream.
+     *
+     * @see Tuple2#v1()
+     */
     default Seq2<K> keys() {
         return this.toSeq2().map(Tuple2::v1);
     }
@@ -1323,6 +1494,11 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.leftOuterJoin(other.toSeq2(), predicate);
     }
 
+    /**
+     * Left outer join two streams on equal keys. Missing right values are {@code null}.
+     *
+     * @see Seq#leftOuterJoin(Seq, BiPredicate)
+     */
     default <V1> PairSeq<K, Tuple2<V, V1>> leftOuterJoinByKey(final PairSeq<K, V1> other) {
         final PairSeq<Tuple2<K, V>, Tuple2<K, V1>> joined = this.leftOuterJoin(other, this.byKey());
         return joined.mapToPair((left, optionalRight) -> new Tuple2<>(left.v1(),
@@ -1415,6 +1591,12 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.toSeq2().map(mapper);
     }
 
+    /**
+     * Map keys and values independently.
+     *
+     * @see #mapKeys(Function)
+     * @see #mapValues(Function)
+     */
     default <K2, V2> PairSeq<K2, V2> map(final Function<? super K, K2> keyMapper,
             final Function<? super V, V2> valueMapper) {
         return this.mapKeys(keyMapper).mapValues(valueMapper);
@@ -1427,6 +1609,11 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.map(this.unwrap(function));
     }
 
+    /**
+     * Map each key, retaining the value.
+     *
+     * @see Seq#map(Function)
+     */
     default <K2> PairSeq<K2, V> mapKeys(final Function<? super K, K2> function) {
         final Seq2<Tuple2<K2, V>> seq = this.map(t -> t.map1(function));
         return seq(seq);
@@ -1480,11 +1667,21 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.mapToLong(this.unwrap(function));
     }
 
+    /**
+     * Map each pair to a new pair using separate key and value mappers.
+     *
+     * @see Seq#map(Function)
+     */
     default <K2, V2> PairSeq<K2, V2> mapToPair(final BiFunction<? super K, ? super V, ? extends K2> keyMapper,
             final BiFunction<? super K, ? super V, ? extends V2> valueMapper) {
         return this.mapToPair(this.toTuple(keyMapper, valueMapper));
     }
 
+    /**
+     * Map each pair to a new pair.
+     *
+     * @see Seq#map(Function)
+     */
     default <K2, V2> PairSeq<K2, V2> mapToPair(
             final BiFunction<? super K, ? super V, ? extends Tuple2<K2, V2>> function) {
         return this.mapToPair(this.unwrap(function));
@@ -1499,6 +1696,11 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return seq(this.map(function));
     }
 
+    /**
+     * Map each value, retaining the key.
+     *
+     * @see Seq#map(Function)
+     */
     default <V2> PairSeq<K, V2> mapValues(final Function<? super V, V2> function) {
         final Seq2<Tuple2<K, V2>> seq = this.map(t -> t.map2(function));
         return seq(seq);
@@ -2012,10 +2214,20 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.peek(this.unwrap(action));
     }
 
+    /**
+     * Perform an action on each key.
+     *
+     * @see Seq#peek(Consumer)
+     */
     default PairSeq<K, V> peekKey(final Consumer<? super K> action) {
         return seq(this.toSeq2().peek(t -> action.accept(t.v1())));
     }
 
+    /**
+     * Perform an action on each value.
+     *
+     * @see Seq#peek(Consumer)
+     */
     default PairSeq<K, V> peekValue(final Consumer<? super V> action) {
         return seq(this.toSeq2().peek(t -> action.accept(t.v2())));
     }
@@ -2137,14 +2349,32 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.toSeq2().reduce(identity, accumulator, combiner);
     }
 
+    /**
+     * Reduce the values of each key.
+     *
+     * @see #groupByKey()
+     * @see Stream#reduce(Object, BinaryOperator)
+     */
     default PairSeq<K, V> reduceByKey(final V identity, final BinaryOperator<V> accumulator) {
         return this.groupByKey().mapValues(s -> s.reduce(identity, accumulator));
     }
 
+    /**
+     * Reduce the values of each key.
+     *
+     * @see #groupByKey()
+     * @see Stream#reduce(BinaryOperator)
+     */
     default PairSeq<K, V> reduceByKey(final BinaryOperator<V> accumulator) {
         return this.groupByKey().flatMapValues(s -> s.reduce(accumulator).stream());
     }
 
+    /**
+     * Reduce the values of each key.
+     *
+     * @see #groupByKey()
+     * @see Stream#reduce(Object, BiFunction, BinaryOperator)
+     */
     default <U> PairSeq<K, U> reduceByKey(final U identity, final BiFunction<U, ? super V, U> accumulator,
             final BinaryOperator<U> combiner) {
         return this.groupByKey().mapValues(s -> s.reduce(identity, accumulator, combiner));
@@ -2298,6 +2528,11 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.rightOuterJoin(other.toSeq2(), predicate);
     }
 
+    /**
+     * Right outer join two streams on equal keys. Missing left values are {@code null}.
+     *
+     * @see Seq#rightOuterJoin(Seq, BiPredicate)
+     */
     default <V1> PairSeq<K, Tuple2<V, V1>> rightOuterJoinByKey(final PairSeq<K, V1> other) {
         final PairSeq<Tuple2<K, V>, Tuple2<K, V1>> joined = this.rightOuterJoin(other, this.byKey());
         return joined.mapToPair((optionalLeft, right) -> new Tuple2<>(right.v1(),
@@ -2328,6 +2563,11 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.toSeq2().scanRight(seed, function);
     }
 
+    /**
+     * Compute a new key for each pair. The original pair becomes the value.
+     *
+     * @see #mapToPair(BiFunction, BiFunction)
+     */
     default <K2> PairSeq<K2, Tuple2<K, V>> selectKey(final BiFunction<? super K, ? super V, ? extends K2> keyMapper) {
         return this.mapToPair(keyMapper, Tuple2::new);
     }
@@ -2558,6 +2798,11 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.sumLong(this.unwrap(function));
     }
 
+    /**
+     * Swap keys and values.
+     *
+     * @see Tuple2#swap()
+     */
     default PairSeq<V, K> swapped() {
         return this.mapToPair(Tuple2::swap);
     }
@@ -2595,6 +2840,11 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return this.toSeq2().toArray(generator);
     }
 
+    /**
+     * Collect this stream into a map.
+     *
+     * @see Seq#toMap(Function, Function)
+     */
     default Map<K, V> toMap() {
         return this.toSeq2().toMap(Tuple2::v1, Tuple2::v2);
     }
@@ -2651,6 +2901,11 @@ public interface PairSeq<K, V> extends BaseSeq<Tuple2<K, V>> {
         return seq(this.toSeq2().unordered());
     }
 
+    /**
+     * Get the values of this stream.
+     *
+     * @see Tuple2#v2()
+     */
     default Seq2<V> values() {
         return this.toSeq2().map(Tuple2::v2);
     }
