@@ -15,10 +15,6 @@ tasks.withType<Test> {
     maxParallelForks = 4
 }
 
-repositories {
-    mavenCentral()
-}
-
 publication {
     developers {
         developer {
@@ -30,7 +26,7 @@ publication {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
