@@ -125,7 +125,7 @@ public interface BaseSeq<T> extends Iterable<T>, Stream<T> {
      * @see Seq#bitOrLong(ToLongFunction)
      */
     default long bitOrLong(final ToLongFunction<? super T> function) {
-        return this.toSeq().bitAndLong(function);
+        return this.toSeq().bitOrLong(function);
     }
 
     /**
