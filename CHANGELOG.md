@@ -1,105 +1,173 @@
-# Change Log
+# Changelog
 
-## [1.0.13](https://github.com/bakdata/seq2/tree/1.0.13) (2025-07-22)
-[View commits](https://github.com/bakdata/seq2/compare/1.0.13...1.0.13)
+All notable changes to this project will be documented in this file.
 
+## [2.0.0](https://github.com/bakdata/seq2/tree/2.0.0) - 2026-11-12
+### What's changed
 
-## [1.0.13](https://github.com/bakdata/seq2/tree/1.0.13) (2025-07-22)
-[View commits](https://github.com/bakdata/seq2/compare/1.0.12...1.0.13)
+* Upgrade to Gradle 9.3 by @philipp94831 in [#20](https://github.com/bakdata/seq2/pull/20)
 
-**Closed issues:**
+* Configure Dependabot by @philipp94831 in [#21](https://github.com/bakdata/seq2/pull/21)
 
-- Support Java 17 [\#5](https://github.com/bakdata/seq2/issues/5)
+* Setup multi-ecosystem Dependabot group by @philipp94831 in [#26](https://github.com/bakdata/seq2/pull/26)
 
-**Merged pull requests:**
+* Add missing sonatype plugin to Dependabot multi-ecosystem group by @philipp94831 in [#29](https://github.com/bakdata/seq2/pull/29)
 
-- add method keyedByIndex [\#18](https://github.com/bakdata/seq2/pull/18) ([@tobbber](https://github.com/tobbber))
-- Upgrade Gradle to 8.14 [\#19](https://github.com/bakdata/seq2/pull/19) ([@philipp94831](https://github.com/philipp94831))
+* Bump the "build" group with 1 update across multiple ecosystems by @dependabot[bot] in [#28](https://github.com/bakdata/seq2/pull/28)
 
-## [1.0.12](https://github.com/bakdata/seq2/tree/1.0.12) (2024-02-27)
-[View commits](https://github.com/bakdata/seq2/compare/1.0.11...1.0.12)
+* Bump the "build" group with 2 updates across multiple ecosystems by @dependabot[bot] in [#30](https://github.com/bakdata/seq2/pull/30)
 
-**Merged pull requests:**
+* Bump org.junit.jupiter:junit-jupiter from 5.14.3 to 5.14.4 in the test-dependencies group by @dependabot[bot] in [#31](https://github.com/bakdata/seq2/pull/31)
 
-- Add selectValue method [\#16](https://github.com/bakdata/seq2/pull/16) ([@philipp94831](https://github.com/philipp94831))
-- Upgrade to Gradle 8.4 [\#17](https://github.com/bakdata/seq2/pull/17) ([@philipp94831](https://github.com/philipp94831))
-- Switch to GitHub Actions [\#14](https://github.com/bakdata/seq2/pull/14) ([@philipp94831](https://github.com/philipp94831))
-- Build in CI using JDK 17 [\#15](https://github.com/bakdata/seq2/pull/15) ([@philipp94831](https://github.com/philipp94831))
+* Bump the "build" group with 1 update across multiple ecosystems by @dependabot[bot] in [#32](https://github.com/bakdata/seq2/pull/32)
 
-## [1.0.11](https://github.com/bakdata/seq2/tree/1.0.11) (2024-01-10)
-[View commits](https://github.com/bakdata/seq2/compare/1.0.10...1.0.11)
+* Bump the "build" group with 2 updates across multiple ecosystems by @dependabot[bot] in [#33](https://github.com/bakdata/seq2/pull/33)
 
-**Merged pull requests:**
+* Bump the "build" group with 1 update across multiple ecosystems by @dependabot[bot] in [#34](https://github.com/bakdata/seq2/pull/34)
 
-- Revert to Azure CI [\#13](https://github.com/bakdata/seq2/pull/13) ([@philipp94831](https://github.com/philipp94831))
+* Bump the "build" group with 1 update across multiple ecosystems by @dependabot[bot] in [#35](https://github.com/bakdata/seq2/pull/35)
 
-## [1.0.10](https://github.com/bakdata/seq2/tree/1.0.10) (2024-01-10)
-[View commits](https://github.com/bakdata/seq2/compare/1.0.9...1.0.10)
+* Bump the "build" group with 2 updates across multiple ecosystems by @dependabot[bot] in [#36](https://github.com/bakdata/seq2/pull/36)
 
-**Merged pull requests:**
+* Bump org.jooq:jool from 0.9.15 to 0.9.16 by @dependabot[bot] in [#38](https://github.com/bakdata/seq2/pull/38)
 
-- Upgrade Gradle plugins [\#12](https://github.com/bakdata/seq2/pull/12) ([@philipp94831](https://github.com/philipp94831))
+* Bump io.freefair.lombok from 9.8.2 to 9.8.3 in the build group by @dependabot[bot] in [#37](https://github.com/bakdata/seq2/pull/37)
 
-## [1.0.9](https://github.com/bakdata/seq2/tree/1.0.9) (2024-01-10)
-[View commits](https://github.com/bakdata/seq2/compare/1.0.8...1.0.9)
+* Upgrade to Java 17 by @philipp94831 in [#40](https://github.com/bakdata/seq2/pull/40)
 
+* Bump org.junit.jupiter:junit-jupiter from 5.14.4 to 6.1.3 by @dependabot[bot] in [#39](https://github.com/bakdata/seq2/pull/39)
 
-## [1.0.8](https://github.com/bakdata/seq2/tree/1.0.8) (2023-11-27)
-[View commits](https://github.com/bakdata/seq2/compare/1.0.7...1.0.8)
+* Add JavaDoc to undocumented PairSeq methods by @philipp94831 in [#41](https://github.com/bakdata/seq2/pull/41)
+
+* Add tests for all methods and fix bitOrLong delegation by @philipp94831 in [#43](https://github.com/bakdata/seq2/pull/43)
+
+* Bump the "build" group with 1 update across multiple ecosystems by @dependabot[bot] in [#42](https://github.com/bakdata/seq2/pull/42)
 
 
-## [1.0.7](https://github.com/bakdata/seq2/tree/1.0.7) (2023-11-24)
-[View commits](https://github.com/bakdata/seq2/compare/1.0.6...1.0.7)
+### New Contributors
+* @dependabot[bot] made their first contribution in [#42](https://github.com/bakdata/seq2/pull/42)
 
-**Merged pull requests:**
+**Full Changelog**: https://github.com/bakdata/seq2/compare/1.0.13...2.0.0
 
-- Bump CI templates to version 1.39.1 [\#11](https://github.com/bakdata/seq2/pull/11) ([@yannick-roeder](https://github.com/yannick-roeder))
-- Migrate azure pipeline to gh actions [\#10](https://github.com/bakdata/seq2/pull/10) ([@MichaelKora](https://github.com/MichaelKora))
-- Add select key and flatMapToPair methods [\#9](https://github.com/bakdata/seq2/pull/9) ([@philipp94831](https://github.com/philipp94831))
+## [1.0.13](https://github.com/bakdata/seq2/tree/1.0.13) - 2025-07-22
+### What's changed
 
-## [1.0.6](https://github.com/bakdata/seq2/tree/1.0.6) (2023-02-21)
-[View commits](https://github.com/bakdata/seq2/compare/1.0.5...1.0.6)
+* Upgrade Gradle to 8.14 by @philipp94831 in [#19](https://github.com/bakdata/seq2/pull/19)
 
-**Merged pull requests:**
+* add method keyedByIndex by @tobbber in [#18](https://github.com/bakdata/seq2/pull/18)
 
-- Add changelog token for release step [\#8](https://github.com/bakdata/seq2/pull/8) ([@philipp94831](https://github.com/philipp94831))
-- Add methods for optionally joining streams on delimiter [\#7](https://github.com/bakdata/seq2/pull/7) ([@philipp94831](https://github.com/philipp94831))
 
-## [1.0.5](https://github.com/bakdata/seq2/tree/1.0.5) (2022-12-02)
-[View commits](https://github.com/bakdata/seq2/compare/1.0.4...1.0.5)
+### New Contributors
+* @tobbber made their first contribution in [#18](https://github.com/bakdata/seq2/pull/18)
 
-**Merged pull requests:**
+**Full Changelog**: https://github.com/bakdata/seq2/compare/1.0.12...1.0.13
 
-- Fix toList method in Java 16\+ [\#6](https://github.com/bakdata/seq2/pull/6) ([@philipp94831](https://github.com/philipp94831))
+## [1.0.12](https://github.com/bakdata/seq2/tree/1.0.12) - 2024-02-27
+### What's changed
 
-## [1.0.4](https://github.com/bakdata/seq2/tree/1.0.4) (2022-05-18)
-[View commits](https://github.com/bakdata/seq2/compare/1.0.3...1.0.4)
+* Build in CI using JDK 17 by @philipp94831 in [#15](https://github.com/bakdata/seq2/pull/15)
 
-**Merged pull requests:**
+* Switch to GitHub Actions by @philipp94831 in [#14](https://github.com/bakdata/seq2/pull/14)
 
-- Add flat map to optional and iterable methods to PairSeq [\#4](https://github.com/bakdata/seq2/pull/4) ([@philipp94831](https://github.com/philipp94831))
+* Upgrade to Gradle 8.4 by @philipp94831 in [#17](https://github.com/bakdata/seq2/pull/17)
 
-## [1.0.3](https://github.com/bakdata/seq2/tree/1.0.3) (2022-04-04)
-[View commits](https://github.com/bakdata/seq2/compare/1.0.2...1.0.3)
+* Add selectValue method by @philipp94831 in [#16](https://github.com/bakdata/seq2/pull/16)
 
-**Merged pull requests:**
 
-- Add joins by key [\#3](https://github.com/bakdata/seq2/pull/3) ([@philipp94831](https://github.com/philipp94831))
+**Full Changelog**: https://github.com/bakdata/seq2/compare/1.0.11...1.0.12
 
-## [1.0.2](https://github.com/bakdata/seq2/tree/1.0.2) (2021-11-03)
-[View commits](https://github.com/bakdata/seq2/compare/1.0.1...1.0.2)
+## [1.0.11](https://github.com/bakdata/seq2/tree/1.0.11) - 2024-01-10
+### What's changed
 
-**Merged pull requests:**
+* Revert to Azure CI by @philipp94831 in [#13](https://github.com/bakdata/seq2/pull/13)
 
-- Add more flat map methods to PairSeq [\#2](https://github.com/bakdata/seq2/pull/2) ([@philipp94831](https://github.com/philipp94831))
 
-## [1.0.1](https://github.com/bakdata/seq2/tree/1.0.1) (2021-10-07)
-[View commits](https://github.com/bakdata/seq2/compare/1.0.0...1.0.1)
+**Full Changelog**: https://github.com/bakdata/seq2/compare/1.0.10...1.0.11
 
-**Merged pull requests:**
+## [1.0.10](https://github.com/bakdata/seq2/tree/1.0.10) - 2024-01-10
+### What's changed
 
-- Add optional methods [\#1](https://github.com/bakdata/seq2/pull/1) ([@philipp94831](https://github.com/philipp94831))
+* Upgrade Gradle plugins by @philipp94831 in [#12](https://github.com/bakdata/seq2/pull/12)
 
-## [1.0.0](https://github.com/bakdata/seq2/tree/1.0.0) (2019-11-18)
-[View commits](https://github.com/bakdata/seq2/compare/9f5bac82e2e59c3209fcd8130f6a4b719bb4d362...1.0.0)
 
+**Full Changelog**: https://github.com/bakdata/seq2/compare/1.0.9...1.0.10
+
+## [1.0.7](https://github.com/bakdata/seq2/tree/1.0.7) - 2023-11-24
+### What's changed
+
+* Add select key and flatMapToPair methods by @philipp94831 in [#9](https://github.com/bakdata/seq2/pull/9)
+
+* Migrate azure pipeline to gh actions by @MichaelKora in [#10](https://github.com/bakdata/seq2/pull/10)
+
+* Bump CI templates to version 1.39.1 by @yannick-roeder in [#11](https://github.com/bakdata/seq2/pull/11)
+
+
+### New Contributors
+* @yannick-roeder made their first contribution in [#11](https://github.com/bakdata/seq2/pull/11)
+* @MichaelKora made their first contribution in [#10](https://github.com/bakdata/seq2/pull/10)
+
+**Full Changelog**: https://github.com/bakdata/seq2/compare/1.0.6...1.0.7
+
+## [1.0.6](https://github.com/bakdata/seq2/tree/1.0.6) - 2023-02-21
+### What's changed
+
+* Add methods for optionally joining streams on delimiter by @philipp94831 in [#7](https://github.com/bakdata/seq2/pull/7)
+
+* Add changelog token for release step by @philipp94831 in [#8](https://github.com/bakdata/seq2/pull/8)
+
+
+**Full Changelog**: https://github.com/bakdata/seq2/compare/1.0.5...1.0.6
+
+## [1.0.5](https://github.com/bakdata/seq2/tree/1.0.5) - 2022-12-02
+### What's changed
+
+* Fix toList method in Java 16+ by @philipp94831 in [#6](https://github.com/bakdata/seq2/pull/6)
+
+
+**Full Changelog**: https://github.com/bakdata/seq2/compare/1.0.4...1.0.5
+
+## [1.0.4](https://github.com/bakdata/seq2/tree/1.0.4) - 2022-05-18
+### What's changed
+
+* Add flat map to optional and iterable methods to PairSeq by @philipp94831 in [#4](https://github.com/bakdata/seq2/pull/4)
+
+
+**Full Changelog**: https://github.com/bakdata/seq2/compare/1.0.3...1.0.4
+
+## [1.0.3](https://github.com/bakdata/seq2/tree/1.0.3) - 2022-04-04
+### What's changed
+
+* Add joins by key by @philipp94831 in [#3](https://github.com/bakdata/seq2/pull/3)
+
+
+**Full Changelog**: https://github.com/bakdata/seq2/compare/1.0.2...1.0.3
+
+## [1.0.2](https://github.com/bakdata/seq2/tree/1.0.2) - 2021-11-03
+### What's changed
+
+* Add more flat map methods to PairSeq by @philipp94831 in [#2](https://github.com/bakdata/seq2/pull/2)
+
+
+**Full Changelog**: https://github.com/bakdata/seq2/compare/1.0.1...1.0.2
+
+## [1.0.1](https://github.com/bakdata/seq2/tree/1.0.1) - 2021-10-07
+### What's changed
+
+* Add optional methods by @philipp94831 in [#1](https://github.com/bakdata/seq2/pull/1)
+
+
+**Full Changelog**: https://github.com/bakdata/seq2/compare/1.0.0...1.0.1
+
+## [1.0.0](https://github.com/bakdata/seq2/tree/1.0.0) - 2019-11-18
+### What's changed
+
+* Initial commit by @philipp94831
+
+* Update README badges by @philipp94831
+
+
+### New Contributors
+* @bakdata-bot made their first contribution
+* @philipp94831 made their first contribution
+
+<!-- generated by git-cliff -->
